@@ -1,0 +1,11 @@
+export default {
+    id: 26,
+    name: "VipFishPrawnCrab",
+    durations: {
+        wholeRound: 39,
+        placingBets: 30,
+        lockingBet: 5,
+    },
+    choices: ["stag", "gourd", "rooster", "fish", "crab", "prawn", "anyTriple"],
+    choicesMapper: { stag: 1, gourd: 2, rooster: 3, fish: 4, crab: 5, prawn: 6, anyTriple: 7 },
+};
