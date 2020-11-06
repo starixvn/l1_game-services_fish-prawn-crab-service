@@ -1,5 +1,5 @@
 export default {
-    hostingPort: 8085,
+    hostingPort: 8002,
     apiSettings: {
         enabledApi: true,
         apiUrl: "http://10.2.189.50:8300",
@@ -9,9 +9,9 @@ export default {
             secret: "gameserver@20luminet&",
         },
         useAuthenticate: true,
-        requestTimeout: 10000,
         placeBetTimeout: 4500,
-        enableApiLogs: true,
+        requestTimeout: 10000, // 10s
+        enabledApiLogs: true,
     },
     mainServerApiSettings: {
         url: "http://10.2.189.50:8888/main/api",

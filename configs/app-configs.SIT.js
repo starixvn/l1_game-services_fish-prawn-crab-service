@@ -1,5 +1,5 @@
 export default {
-    hostingPort: 8085,
+    hostingPort: 6002,
     apiSettings: {
         enabledApi: true,
         apiUrl: "http://10.2.189.51:6300",
@@ -11,10 +11,10 @@ export default {
         useAuthenticate: true,
         requestTimeout: 10000,
         placeBetTimeout: 4500,
-        enableApiLogs: true,
+        enabledApiLogs: true,
     },
     mainServerApiSettings: {
-        url: "http://10.2.189.51:7777/sit/main/api",
+        url: "http://10.2.189.65:7777/sit/main/api",
         auth: {
             url: "http://10.2.189.51:6303",
             id: "game-services",
