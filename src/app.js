@@ -3,6 +3,7 @@ import { Table } from "sc-game-base";
 import appConfigs from "./app-configs";
 import constants from "./constants";
 import { SettleGameRoundConsumer } from "./consumers";
+import { Bot } from "./crons";
 import gameSettings from "./game-settings";
 import { DiceRandom } from "./helpers";
 import { bets, tmpBets } from "./models/vip-fish-prawn-crab-bets";
@@ -55,7 +56,12 @@ const run = async () => {
         null
     );
 
-    const gameCron = new Table.TableGameCron(definition, gameData, null, new SettleGameRoundConsumer(definition, gameData));
+    const gameCron = new Table.TableGameCron(
+        definition,
+        gameData,
+        new Bot(definition, gameData),
+        new SettleGameRoundConsumer(definition, gameData)
+    );
     const startup = new Startup(appConfigs, definition, gameData, gameCron);
     const app = new Table.TableGameApp(appConfigs, definition, gameData, startup);
 
