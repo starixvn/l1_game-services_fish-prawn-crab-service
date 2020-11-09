@@ -5,6 +5,7 @@ export default {
         wholeRound: 39,
         placingBets: 30,
         lockingBet: 5,
+        shakeThePlateDuration: 2,
     },
     choices: ["stag", "gourd", "rooster", "fish", "crab", "prawn", "anyTriple"],
     choicesMapper: { stag: 1, gourd: 2, rooster: 3, fish: 4, crab: 5, prawn: 6, anyTriple: 7 },
