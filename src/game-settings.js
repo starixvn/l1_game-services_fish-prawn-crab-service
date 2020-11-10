@@ -2,7 +2,7 @@ export default {
     id: 26,
     name: "VipFishPrawnCrab",
     durations: {
-        wholeRound: 39,
+        wholeRound: 41,
         placingBets: 30,
         lockingBet: 5,
         shakeThePlateDuration: 2,
