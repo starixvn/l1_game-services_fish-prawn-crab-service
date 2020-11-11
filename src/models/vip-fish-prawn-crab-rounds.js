@@ -21,6 +21,8 @@ const settlementResultSchema = new mongoose.Schema(
         crab: { type: Boolean, default: false },
         prawn: { type: Boolean, default: false },
         anyTriple: { type: Boolean, default: false },
+        mountain: { type: Boolean, default: false },
+        ocean: { type: Boolean, default: false },
     },
     { _id: false }
 );
