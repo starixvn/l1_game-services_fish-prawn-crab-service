@@ -9,7 +9,7 @@ export default class Bot extends Table.TableGameBot {
 
         this.betChoiceRatio = { MainOpts: 96, SubOpts: 4 };
 
-        this.mainOpts = ["stag", "gourd", "rooster", "fish", "crab", "prawn"];
+        this.mainOpts = ["stag", "gourd", "rooster", "fish", "crab", "prawn", "mountain", "ocean"];
         this.subOpts = ["anyTriple"];
 
         this.smallTicketRatio = 70;
