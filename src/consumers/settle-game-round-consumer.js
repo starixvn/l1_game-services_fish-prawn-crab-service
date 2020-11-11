@@ -6,7 +6,8 @@ export default class SettleGameRoundConsumer extends Table.EventConsumers.Settle
     async settleRound() {
         const resultFromAdmin = this.gameData.settlementResultFromAdmin;
         const generatedResult = this.definition.generateResult();
-        const result = this.gameData.roundId === resultFromAdmin.roundId ? {...generatedResult, ...resultFromAdmin.result} : generatedResult;
+        const result =
+            this.gameData.roundId === resultFromAdmin.roundId ? { ...generatedResult, ...resultFromAdmin.result } : generatedResult;
         const settlementResult = this.definition.settle(result);
         const newRound = await this.definition.roundRepository.create({
             result,
@@ -57,7 +58,7 @@ export default class SettleGameRoundConsumer extends Table.EventConsumers.Settle
         const betResult = Object.entries(settlementResult).reduce(
             (result, [choice, win]) => {
                 const betAmount = bet[choice];
-                const originalOdds = (choice === "anyTriple" ? odds[choice] : odds[this.getOddName(roundResult, choice)]) || 1;
+                const originalOdds = (this.isSpecificChoice(choice) ? odds[choice] : odds[this.getOddName(roundResult, choice)]) || 1;
                 const effectiveOdds = bet.freeBet ? originalOdds - 1 : originalOdds;
                 const winAmount = win ? betAmount * effectiveOdds : 0;
 
@@ -86,6 +87,10 @@ export default class SettleGameRoundConsumer extends Table.EventConsumers.Settle
         betResult.netWin = parseFloat(betResult.netWin.toFixed(2));
 
         return betResult;
+    }
+
+    isSpecificChoice(choice) {
+        return ["anyTriple", "mountain", "ocean"].indexOf(choice) > -1;
     }
 
     getOddName(result, choice) {

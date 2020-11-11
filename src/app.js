@@ -31,6 +31,8 @@ const settlementRuleEntries = Object.entries({
     crab: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.crab),
     prawn: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.prawn),
     anyTriple: (diceArray) => diceArray.every((dice) => dice === diceArray[0]),
+    mountain: (diceArray) => diceArray.filter((dice) => dice < 3).length >= 2,
+    ocean: (diceArray) => diceArray.filter((dice) => dice >= 3).length >= 2,
 });
 
 const getSettlementResult = (roundResult) => {
