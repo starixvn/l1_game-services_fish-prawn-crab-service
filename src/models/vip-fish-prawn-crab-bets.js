@@ -12,6 +12,8 @@ const schema = new mongoose.Schema({
     crab: { type: Number, default: 0 },
     prawn: { type: Number, default: 0 },
     anyTriple: { type: Number, default: 0 },
+    mountain: { type: Number, default: 0 },
+    ocean: { type: Number, default: 0 },
 
     thanhtoan: { type: Boolean, default: false },
     betwin: { type: Number, default: 0 },
