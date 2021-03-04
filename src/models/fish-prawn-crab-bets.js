@@ -11,9 +11,6 @@ const schema = new mongoose.Schema({
     fish: { type: Number, default: 0 },
     crab: { type: Number, default: 0 },
     prawn: { type: Number, default: 0 },
-    anyTriple: { type: Number, default: 0 },
-    mountain: { type: Number, default: 0 },
-    ocean: { type: Number, default: 0 },
 
     thanhtoan: { type: Boolean, default: false },
     betwin: { type: Number, default: 0 },
@@ -25,7 +22,7 @@ const schema = new mongoose.Schema({
     freeBet: { type: Boolean, default: false },
 });
 
-const bets = mongoose.model("VipFishPrawnCrab_cuoc", schema);
-const tmpBets = mongoose.model("VipFishPrawnCrab_tmpcuoc", schema);
+const bets = mongoose.model("BauCua_cuoc", schema);
+const tmpBets = mongoose.model("BauCua_tmpcuoc", schema);
 
 export { bets, tmpBets };

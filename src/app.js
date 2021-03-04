@@ -1,11 +1,11 @@
 import Chance from "chance";
-import { Core, Table } from "sc-game-base";
+import { Core } from "sc-game-base";
 
 import appConfigs from "./app-configs";
 import constants from "./constants";
 import gameSettings from "./game-settings";
 import { DiceRandom } from "./helpers";
-import VipFishPrawnCrabContainerRegistry from "./vip-fishprawncrab-container-registry";
+import FishPrawnCrabContainerRegistry from "./fishprawncrab-container-registry";
 
 const generateResult = () => {
     let resultArray = [];
@@ -28,9 +28,6 @@ const settlementRuleEntries = Object.entries({
     fish: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.fish),
     crab: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.crab),
     prawn: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.prawn),
-    anyTriple: (diceArray) => diceArray.every((dice) => dice === diceArray[0]),
-    mountain: (diceArray) => diceArray.filter((dice) => dice < 3).length >= 2,
-    ocean: (diceArray) => diceArray.filter((dice) => dice >= 3).length >= 2,
 });
 
 const getSettlementResult = (roundResult) => {
@@ -44,9 +41,9 @@ const getSettlementResult = (roundResult) => {
 };
 
 const run = async () => {
-    const gameData = new Table.TableGameData(gameSettings.durations.wholeRound);
-    const definition = new Table.TableGameDefinition(gameSettings, generateResult, getSettlementResult);
-    const container = new VipFishPrawnCrabContainerRegistry().register(appConfigs, definition, gameData);
+    const gameData = new Core.GameData(gameSettings.durations.wholeRound);
+    const definition = new Core.GameDefinition(gameSettings, generateResult, getSettlementResult);
+    const container = new FishPrawnCrabContainerRegistry().register(appConfigs, definition, gameData);
     const app = new Core.BaseGameApp(container);
 
     await app.run();

@@ -7,10 +7,7 @@ export default class Bot extends Table.Crons.TableGameBot {
     constructor(definition, gameData, publisher, userInfosRepository, tempBetsRepository) {
         super(definition, gameData, publisher, userInfosRepository, tempBetsRepository);
 
-        this.betChoiceRatio = { MainOpts: 98, SubOpts: 2 };
-
-        this.mainOpts = ["stag", "gourd", "rooster", "fish", "crab", "prawn", "mountain", "ocean"];
-        this.subOpts = ["anyTriple"];
+        this.mainOpts = ["stag", "gourd", "rooster", "fish", "crab", "prawn"];
 
         this.smallTicketRatio = 70;
         this.smallTickets = 0;
@@ -30,33 +27,13 @@ export default class Bot extends Table.Crons.TableGameBot {
             fish: 0,
             crab: 0,
             prawn: 0,
-            anyTriple: 0,
         };
 
         this.smallTickets = 0;
     }
 
     getBetChoice(bot) {
-        const totalBotBet = this.getAllBetAmount();
-
-        const betChoiceRatios = [
-            {
-                group: this.mainOpts,
-                underBetRatio: (this.getTotalAmountOnChoiceGroup(this.mainOpts) * 100) / totalBotBet < this.betChoiceRatio.MainOpts,
-            },
-            {
-                group: this.subOpts,
-                underBetRatio: (this.getTotalAmountOnChoiceGroup(this.subOpts) * 100) / totalBotBet < this.betChoiceRatio.SubOpts,
-            },
-        ];
-
-        const underRatioGroups = helpers.arrayHelper.shuffle(betChoiceRatios.filter((data) => data.underBetRatio));
-
-        const choice =
-            underRatioGroups.length > 0
-                ? this.getRandomChoiceFromGroup(underRatioGroups[0].group)
-                : this.getRandomChoiceFromGroup(this.mainOpts);
-
+        const choice = this.getRandomChoiceFromGroup(this.mainOpts);
         const previousUniqueChoices = bot.choices.filter((betChoice) => this.mainOpts.includes(betChoice));
 
         return previousUniqueChoices.length > 0 ? previousUniqueChoices[0] : choice;

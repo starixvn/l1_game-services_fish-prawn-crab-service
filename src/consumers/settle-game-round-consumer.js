@@ -1,8 +1,8 @@
-import { Table } from "sc-game-base";
+import { Core } from "sc-game-base";
 
 import constants from "../constants";
 
-export default class SettleGameRoundConsumer extends Table.EventConsumers.TableSettleGameRoundConsumer {
+export default class SettleGameRoundConsumer extends Core.BaseEventConsumers.SettleGameRoundConsumer {
     async settleBets({ result, settlementResult, roundId, time }) {
         const bets = await this.queryBets(roundId);
 
@@ -32,7 +32,7 @@ export default class SettleGameRoundConsumer extends Table.EventConsumers.TableS
         const betResult = Object.entries(settlementResult).reduce(
             (result, [choice, win]) => {
                 const betAmount = bet[choice];
-                const originalOdds = (this.isSpecificChoice(choice) ? odds[choice] : odds[this.getOddName(roundResult, choice)]) || 1;
+                const originalOdds = odds[this.getOddName(roundResult, choice)] || 1;
                 const effectiveOdds = bet.freeBet ? originalOdds - 1 : originalOdds;
                 const winAmount = win ? betAmount * effectiveOdds : 0;
 
@@ -61,10 +61,6 @@ export default class SettleGameRoundConsumer extends Table.EventConsumers.TableS
         betResult.netWin = parseFloat(betResult.netWin.toFixed(2));
 
         return betResult;
-    }
-
-    isSpecificChoice(choice) {
-        return ["anyTriple", "mountain", "ocean"].indexOf(choice) > -1;
     }
 
     getOddName(result, choice) {
