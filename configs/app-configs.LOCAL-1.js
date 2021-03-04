@@ -41,9 +41,9 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "http://d9f82135b5c642e79010bec2e0cbe2a9@sentry.lumigame.com/11",
+        sentryUrl: "http://454d91efa04544c593435a8096ec7763@sentry.lumigame.com/10",
         logIdentifier: "fish-prawn-crab",
-        env: "LOCAL",
+        env: "LOCAL1",
     },
     authenticateSettings: {
         audiences: ["api", "admin-api"],
