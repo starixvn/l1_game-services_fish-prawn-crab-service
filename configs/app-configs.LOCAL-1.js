@@ -41,8 +41,8 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "https://95fa47356ece4e42834cb332a1a724bc@sentryuat.sabagame.com/189",
-        logIdentifier: "vip-fish-prawn-crab",
+        sentryUrl: "http://d9f82135b5c642e79010bec2e0cbe2a9@sentry.lumigame.com/11",
+        logIdentifier: "fish-prawn-crab",
         env: "LOCAL",
     },
     authenticateSettings: {
