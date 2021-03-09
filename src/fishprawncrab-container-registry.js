@@ -43,7 +43,7 @@ export default class FishPrawnCrabContainerRegistry extends Core.ContainerRegist
 
         this.container.register({
             roundQuery: asClass(FishPrawnCrabRoundQuery).singleton(),
-            historyQuery: asClass(FishPrawnCrabHistoryQuery).singleton().proxy(),
+            historyQuery: asClass(FishPrawnCrabHistoryQuery).singleton(),
         });
     }
 }
