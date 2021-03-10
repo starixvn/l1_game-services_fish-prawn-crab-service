@@ -1,17 +1,47 @@
-import { helpers } from "sc-common";
-import { Table } from "sc-game-base";
-
+import { Core } from "sc-game-base";
+import { userInfos } from "sc-base-database";
 import constants from "../constants";
 
-export default class Bot extends Table.Crons.TableGameBot {
-    constructor(definition, gameData, publisher, userInfosRepository, tempBetsRepository) {
-        super(definition, gameData, publisher, userInfosRepository, tempBetsRepository);
+export default class Bot extends Core.Crons.BaseBot {
+    constructor(definition, gameData, userInfosRepository) {
+        super(definition, gameData, userInfosRepository);
 
         this.mainOpts = ["stag", "gourd", "rooster", "fish", "crab", "prawn"];
 
         this.smallTicketRatio = 70;
         this.smallTickets = 0;
         this.resetAllBets();
+    }
+
+    async reset() {
+        await super.reset();
+
+        const configs = this.gameData.gameConfigs;
+
+        if (configs?.botenabled) {
+            const bots = await userInfos.find({ type: true, disabled: false }, "id name").lean().exec();
+
+            this.bots = this.chance.shuffle(bots).slice(0, this.maxNumberOfBots);
+        } else {
+            this.bots = [];
+        }
+    }
+
+    async placeBet(bot) {
+        const choice = this.getBetChoice(bot);
+        const minBet = this.getMinBet();
+        const maxBet = this.getMaxBet(bot, choice);
+        const betAmount = this.getBetAmount(minBet, maxBet);
+
+        if (this.gameData.remainingTime > this.definition.durations.lockingBet) {
+            this.gameData.totalBets[choice] = (this.gameData.totalBets[choice] ?? 0) + betAmount;
+            this.allBets[choice] = (this.allBets[choice] ?? 0) + betAmount;
+            this.totalTickets++;
+
+            if (this.isSmallTicket(betAmount)) {
+                this.smallTickets++;
+            }
+        }
     }
 
     async resetAllBotData() {
@@ -32,11 +62,12 @@ export default class Bot extends Table.Crons.TableGameBot {
         this.smallTickets = 0;
     }
 
-    getBetChoice(bot) {
-        const choice = this.getRandomChoiceFromGroup(this.mainOpts);
-        const previousUniqueChoices = bot.choices.filter((betChoice) => this.mainOpts.includes(betChoice));
+    getBetAmount(minBet, maxBet) {
+        return this.chance.integer({ min: minBet, max: maxBet });
+    }
 
-        return previousUniqueChoices.length > 0 ? previousUniqueChoices[0] : choice;
+    getBetChoice(bot) {
+        return this.getRandomChoiceFromGroup(this.mainOpts);
     }
 
     getMaxBet(bot, choice) {
@@ -45,10 +76,6 @@ export default class Bot extends Table.Crons.TableGameBot {
         const maxBetPerChoice = gameConfigs.choices_maxbet[choice];
         const botMaxBet = gameConfigs.bot_maxbet;
         let maxBet = Math.min(maxBetPerChoice, botMaxBet);
-
-        if (this.subOpts.includes(choice)) {
-            maxBet = Math.min(botMaxBet * 0.1, maxBetPerChoice);
-        }
 
         if (this.mainOpts.includes(choice)) {
             const isSmallTicket = this.totalTickets === 0 ? true : (this.smallTickets * 100) / this.totalTickets < this.smallTicketRatio;
@@ -87,18 +114,5 @@ export default class Bot extends Table.Crons.TableGameBot {
 
     isSmallTicket(amount) {
         return amount <= this.getMinBet() * 50;
-    }
-
-    updateBotInRoomData(bot, choice, amount, balance) {
-        super.updateBotInRoomData(bot, choice, amount, balance);
-
-        this.allBets[choice] = this.allBets[choice] ? this.allBets[choice] + amount : amount;
-        this.smallTickets += this.isSmallTicket(amount) ? 1 : 0;
-    }
-
-    convertAmountToChip(amount) {
-        const chipList = constants.chips.filter((chip) => amount % chip === 0);
-
-        return chipList.length > 0 ? chipList[0] : this.getMinBet();
     }
 }

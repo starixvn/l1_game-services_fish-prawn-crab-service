@@ -2,7 +2,7 @@ export default {
     id: 3,
     name: "BauCua",
     durations: {
-        wholeRound: 36,
+        wholeRound: 40,
         placingBets: 30,
         lockingBet: 5,
         shakeThePlateDuration: 1,
