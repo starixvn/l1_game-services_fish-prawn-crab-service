@@ -1,4 +1,4 @@
 include:
-  - project: "ci/repos-ci/pentagon_l1_fish-prawn-crab_service"
+  - project: "ci/repos-ci/pentagon_l1_fish_prawn_crab_service"
     ref: master
     file: "gitlab-ci.yml"
