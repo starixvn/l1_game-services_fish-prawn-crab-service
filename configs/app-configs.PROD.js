@@ -43,7 +43,7 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "http://49e18ec3f6914baaad6f73ecacd5471a@10.99.99.187:803/116",
+        sentryUrl: "http://cc01b854a905466ba56f7da01ef8f466@10.99.99.187:803/149",
         logIdentifier: "fish-prawn-crab",
         env: "PROD",
     },

@@ -42,7 +42,7 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "http://bfe6516327bf417c86491c34fd4df225@sentryuat.sabagame.com/227",
+        sentryUrl: "http://d44205c20cec413288305b88a652b92d@sentryuat.sabagame.com/226",
         logIdentifier: "fish-prawn-crab",
         env: "UAT",
     },
