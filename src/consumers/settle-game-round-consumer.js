@@ -1,34 +1,8 @@
-import { Table } from "sc-game-base";
+import { Core } from "sc-game-base";
 
 import constants from "../constants";
 
-export default class SettleGameRoundConsumer extends Table.EventConsumers.SettleGameRoundConsumer {
-    async settleRound() {
-        const resultFromAdmin = this.gameData.settlementResultFromAdmin;
-        const generatedResult = this.definition.generateResult();
-        const result =
-            this.gameData.roundId === resultFromAdmin.roundId ? { ...generatedResult, ...resultFromAdmin.result } : generatedResult;
-        const settlementResult = this.definition.settle(result);
-        const newRound = await this.definition.roundRepository.create({
-            result,
-            settlementResult,
-            time: new Date(),
-        });
-
-        if (newRound) {
-            const finish = {
-                settlementResult,
-                result,
-                roundId: newRound.id,
-                time: newRound.time,
-            };
-
-            this.gameData.roundId = finish.roundId + 1;
-
-            await this.settleBets(finish);
-        }
-    }
-
+export default class SettleGameRoundConsumer extends Core.BaseEventConsumers.SettleGameRoundConsumer {
     async settleBets({ result, settlementResult, roundId, time }) {
         const bets = await this.queryBets(roundId);
 
@@ -58,7 +32,7 @@ export default class SettleGameRoundConsumer extends Table.EventConsumers.Settle
         const betResult = Object.entries(settlementResult).reduce(
             (result, [choice, win]) => {
                 const betAmount = bet[choice];
-                const originalOdds = (this.isSpecificChoice(choice) ? odds[choice] : odds[this.getOddName(roundResult, choice)]) || 1;
+                const originalOdds = odds[this.getOddName(roundResult, choice)] || 1;
                 const effectiveOdds = bet.freeBet ? originalOdds - 1 : originalOdds;
                 const winAmount = win ? betAmount * effectiveOdds : 0;
 
@@ -87,10 +61,6 @@ export default class SettleGameRoundConsumer extends Table.EventConsumers.Settle
         betResult.netWin = parseFloat(betResult.netWin.toFixed(2));
 
         return betResult;
-    }
-
-    isSpecificChoice(choice) {
-        return ["anyTriple", "mountain", "ocean"].indexOf(choice) > -1;
     }
 
     getOddName(result, choice) {

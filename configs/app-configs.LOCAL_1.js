@@ -14,7 +14,7 @@ export default {
         enabledApiLogs: true,
     },
     mainServerApiSettings: {
-        url: "http://haproxy.lumigame.com:7002/main/api",
+        url: "http://haproxy.lumigame.com:7001/main/api",
         auth: {
             url: "http://l1-auth1.lumigame.com",
             id: "game-services",
@@ -29,6 +29,7 @@ export default {
         pingTimeout: 60 * 1000,
         transports: ["websocket"],
         allowUpgrades: false,
+        perMessageDeflate: false,
     },
     enabledLogs: true,
     database: {
@@ -41,14 +42,20 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "https://95fa47356ece4e42834cb332a1a724bc@sentryuat.sabagame.com/189",
-        logIdentifier: "vip-fish-prawn-crab",
-        env: "LOCAL",
+        sentryUrl: "http://454d91efa04544c593435a8096ec7763@sentry.lumigame.com/10",
+        logIdentifier: "fish-prawn-crab",
+        env: "LOCAL1",
     },
     authenticateSettings: {
         audiences: ["api", "admin-api"],
     },
     adminSecretKey: "asWDEerfOIdgsdqRTFabvmgh",
     enableCorsWs: true,
-    corsUrls: ["http://localhost:7456", "http://localhost:7000", "http://l1-games1.lumigame.com", "http://l1-admin1.lumigame.com"],
+    corsUrls: [
+        "http://localhost:7456",
+        "http://localhost:7000",
+        "http://localhost:3000",
+        "http://l1-games1.lumigame.com",
+        "http://l1-admin1.lumigame.com",
+    ],
 };

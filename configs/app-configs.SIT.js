@@ -1,9 +1,9 @@
 export default {
-    hostingPort: 6004,
+    hostingPort: 5000,
     apiSettings: {
         enabledApi: true,
-        apiUrl: "http://10.2.189.51:6300",
-        authUrl: "http://10.2.189.51:6303",
+        apiUrl: "http://l1_game_api_sit:5000",
+        authUrl: "http://l1_auth_api_sit:5000",
         client: {
             id: "game-server",
             secret: "gameserver@20luminet&",
@@ -14,9 +14,9 @@ export default {
         enabledApiLogs: true,
     },
     mainServerApiSettings: {
-        url: "http://10.2.189.65:7777/sit/main/api",
+        url: "http://l1_game_server_sit:5000/api",
         auth: {
-            url: "http://10.2.189.51:6303",
+            url: "http://l1_auth_api_sit:5000",
             id: "game-services",
             secret: "gameservices@20luminet&",
         },
@@ -29,6 +29,7 @@ export default {
         pingTimeout: 60 * 1000,
         transports: ["websocket"],
         allowUpgrades: false,
+        perMessageDeflate: false,
     },
     enabledLogs: true,
     database: {
@@ -41,8 +42,8 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "http://cec715e3b6c34e57a16484f83c2319b7@10.99.99.187:800/161",
-        logIdentifier: "vip-fish-prawn-crab",
+        sentryUrl: "http://d44205c20cec413288305b88a652b92d@10.99.99.187:800/226",
+        logIdentifier: "fish-prawn-crab",
         env: "SIT",
     },
     authenticateSettings: {

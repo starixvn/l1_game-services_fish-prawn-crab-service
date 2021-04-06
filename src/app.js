@@ -1,15 +1,11 @@
 import Chance from "chance";
-import { Table } from "sc-game-base";
+import { Core } from "sc-game-base";
 
 import appConfigs from "./app-configs";
 import constants from "./constants";
-import { SettleGameRoundConsumer } from "./consumers";
-import { Bot, GameCron } from "./crons";
 import gameSettings from "./game-settings";
 import { DiceRandom } from "./helpers";
-import { bets, tmpBets } from "./models/vip-fish-prawn-crab-bets";
-import VipFishPrawnCrabRounds from "./models/vip-fish-prawn-crab-rounds";
-import Startup from "./startup";
+import FishPrawnCrabContainerRegistry from "./fishprawncrab-container-registry";
 
 const generateResult = () => {
     let resultArray = [];
@@ -32,9 +28,6 @@ const settlementRuleEntries = Object.entries({
     fish: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.fish),
     crab: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.crab),
     prawn: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.prawn),
-    anyTriple: (diceArray) => diceArray.every((dice) => dice === diceArray[0]),
-    mountain: (diceArray) => diceArray.filter((dice) => dice < 3).length >= 2,
-    ocean: (diceArray) => diceArray.filter((dice) => dice >= 3).length >= 2,
 });
 
 const getSettlementResult = (roundResult) => {
@@ -48,21 +41,10 @@ const getSettlementResult = (roundResult) => {
 };
 
 const run = async () => {
-    const gameData = new Table.TableGameData(gameSettings.durations.wholeRound);
-
-    const definition = new Table.TableGameDefinition(
-        gameSettings,
-        generateResult,
-        getSettlementResult,
-        VipFishPrawnCrabRounds,
-        bets,
-        tmpBets,
-        null
-    );
-
-    const gameCron = new GameCron(definition, gameData, new Bot(definition, gameData), new SettleGameRoundConsumer(definition, gameData));
-    const startup = new Startup(appConfigs, definition, gameData, gameCron);
-    const app = new Table.TableGameApp(appConfigs, definition, gameData, startup);
+    const gameData = new Core.GameData(gameSettings.durations.wholeRound);
+    const definition = new Core.GameDefinition(gameSettings, generateResult, getSettlementResult);
+    const container = new FishPrawnCrabContainerRegistry().register(appConfigs, definition, gameData);
+    const app = new Core.BaseGameApp(container);
 
     await app.run();
 };
