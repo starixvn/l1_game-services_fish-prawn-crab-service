@@ -57,5 +57,6 @@ export default {
         "http://localhost:3000",
         "http://l1-games1.lumigame.com",
         "http://l1-admin1.lumigame.com",
+        "http://l1-m1.lumigame.com",
     ],
 };
