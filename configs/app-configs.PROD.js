@@ -43,7 +43,7 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "http://cc01b854a905466ba56f7da01ef8f466@10.99.99.187:803/149",
+        sentryUrl: "http://58fc00e79ab34a3bab04a79038760cb8@10.99.99.187:803/8",
         logIdentifier: "fish-prawn-crab",
         env: "PROD",
     },
@@ -65,5 +65,9 @@ export default {
         "https://admg.sabagame.com",
         "http://adm.sabagame.com",
         "https://adm.sabagame.com",
+        "http://m.sabagame.com",
+        "https://m.sabagame.com",
+        "http://m.gamesaba.com",
+        "https://m.gamesaba.com",
     ],
 };
