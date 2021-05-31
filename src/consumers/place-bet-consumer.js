@@ -9,7 +9,7 @@ export default class PlaceBetConsumer extends Core.BaseEventConsumers.PlaceBetCo
         return [
             {
                 failure: !configs.enabled,
-                notice: this.getNoticeObj(gethelpers.noticeHelper.placeBetNextRound),
+                notice: this.getNoticeObj(helpers.noticeHelper.placeBetNextRound),
             },
             {
                 failure:
