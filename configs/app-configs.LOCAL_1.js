@@ -42,15 +42,15 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "https://62195acaeb164e829895d60189563a51@sentry.lumigame.com/26",
+        sentryUrl: "https://13f39b8359404ed5aec23655e64ccf78@sentry.lumigame.com/2",
         logIdentifier: "fish-prawn-crab",
-        env: "LOCAL1",
+        env: "LOCAL-1",
     },
     authenticateSettings: {
         audiences: ["api", "admin-api"],
     },
     adminSecretKey: "asWDEerfOIdgsdqRTFabvmgh",
-    enableCorsWs: true,
+    enableCorsWs: false,
     corsUrls: [
         "http://localhost:7456",
         "http://localhost:7000",
@@ -61,4 +61,8 @@ export default {
         "http://l1-m1.lumigame.com",
         "https://l1-m1.lumigame.com",
     ],
+    metrics: {
+        enable: true,
+        secretKey: "6c1f0f28-70f2-46ae-b031-22624a6cd8df",
+    },
 };
