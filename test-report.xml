@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="D:\L5\fish-prawn-crab-service\src\helpers\__tests__\result-helper.test.js">
+    <testCase name="generateResult test should return 3 dices having value between 0 and 5" duration="10"/>
+    <testCase name="getSettlementResult test should return correct settlement result" duration="2"/>
+    <testCase name="getSettlementResult test should return correct settlement result" duration="0"/>
+    <testCase name="getSettlementResult test should return correct settlement result" duration="0"/>
+    <testCase name="getSettlementResult test should return correct settlement result" duration="1"/>
+  </file>
+  <file path="D:\L5\fish-prawn-crab-service\src\consumers\__tests__\place-bet-consumer.test.js">
+    <testCase name="PlaceBetConsumer test should inherit Core place bet consumer" duration="1"/>
+    <testCase name="BettingTimeValidation test should return invalid bet when game&apos;s disabled" duration="1"/>
+    <testCase name="BettingTimeValidation test should return invalid bet when betting after place bet time" duration="0"/>
+    <testCase name="BettingTimeValidation test should return invalid bet when betting on waitting time" duration="1"/>
+    <testCase name="BettingTimeValidation test should return valid bet when betting on place bet time" duration="0"/>
+  </file>
+  <file path="D:\L5\fish-prawn-crab-service\src\consumers\__tests__\settle-game-round-consumer.test.js">
+    <testCase name="SettleGameRoundConsumer test should inherit base SettleGameRoundConsumer" duration="1"/>
+    <testCase name="calculateBetResult test should return correct result" duration="2"/>
+    <testCase name="calculateBetResult test should return correct result" duration="0"/>
+    <testCase name="calculateBetResult test should return correct result" duration="0"/>
+    <testCase name="calculateBetResult test should return correct result" duration="1"/>
+    <testCase name="settleBets test should settle all bets and publish to game client" duration="1"/>
+  </file>
+</testExecutions>
