@@ -1,8 +1,9 @@
 import { stub, stubMongooseModelStupidly } from "jest-micro-auto-stub";
 import mongoose from "mongoose";
 import { Core } from "sc-game-base";
-import FishPrawnCrabBot from "../bot";
-import gameSettings from "../../game-settings";
+
+import FishPrawnCrabBot from "../../src/crons/bot";
+import gameSettings from "../../src/game-settings";
 
 const definition = new Core.GameDefinition(gameSettings);
 const gameData = new Core.GameData(0);

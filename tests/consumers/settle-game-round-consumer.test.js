@@ -1,9 +1,9 @@
 import { stubMongooseModelStupidly } from "jest-micro-auto-stub";
 import mongoose from "mongoose";
-import SettleGameRoundConsumer from "../settle-game-round-consumer";
 import { Core } from "sc-game-base";
 
-jest.mock("../../constants");
+import SettleGameRoundConsumer from "../../src/consumers/settle-game-round-consumer";
+
 jest.mock("sc-game-base/src/core/event-publishers/round-result-publisher");
 jest.mock("sc-game-base/src/core/event-publishers/user-bet-result-publisher");
 

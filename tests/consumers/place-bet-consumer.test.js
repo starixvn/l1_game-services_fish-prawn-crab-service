@@ -1,8 +1,9 @@
 import { stub } from "jest-micro-auto-stub";
+import { helpers } from "sc-common";
 import { Core } from "sc-game-base";
-import gameSettings from "../../game-settings";
 
-import PlaceBetConsumer from "../place-bet-consumer";
+import PlaceBetConsumer from "../../src/consumers/place-bet-consumer";
+import gameSettings from "../../src/game-settings";
 
 const definition = new Core.GameDefinition(gameSettings);
 const publisher = stub(Core.BaseEventPublishers.BaseEventPublisher);
@@ -18,45 +19,82 @@ describe("PlaceBetConsumer test", () => {
 
 describe("BettingTimeValidation test", () => {
     it("should return invalid bet when game's disabled", () => {
+        // arrange
         const gameData = new Core.GameData();
         gameData.gameConfigs = {
             enabled: false,
         };
         const consumer = new PlaceBetConsumer(definition, gameData, publisher);
 
-        const actualResult = consumer.composeBettingTimeValidationCriteria();
+        // act
+        const actualResult = consumer.composeBettingTimeValidationCriteria(1);
 
+        // assert
         expect(actualResult[0].failure).toBe(true);
     });
 
     it("should return invalid bet when betting after place bet time", () => {
+        // arrange
         const gameData = new Core.GameData(31);
         const consumer = new PlaceBetConsumer(definition, gameData, publisher);
 
-        const actualResult = consumer.composeBettingTimeValidationCriteria();
+        // act
+        const criterions = consumer.composeBettingTimeValidationCriteria(1);
 
-        expect(actualResult[1].failure).toBe(true);
+        // assert
+        expect(criterions.filter((x) => x.failure)[0]).toStrictEqual({
+            failure: true,
+            notice: { errorCode: helpers.noticeHelper.placeBetNextRound },
+        });
     });
 
     it("should return invalid bet when betting on waitting time", () => {
+        // arrange
         const gameData = new Core.GameData(34);
         const consumer = new PlaceBetConsumer(definition, gameData, publisher);
 
-        const actualResult = consumer.composeBettingTimeValidationCriteria();
+        // act
+        const criterions = consumer.composeBettingTimeValidationCriteria(1);
 
-        expect(actualResult[2].failure).toBe(true);
+        // assert
+        expect(criterions.filter((x) => x.failure)[0]).toStrictEqual({
+            failure: true,
+            notice: { errorCode: helpers.noticeHelper.placeBetNextRound },
+        });
+    });
+
+    it("should return placeBetNextRound notice if roundId not match running round", () => {
+        // arrange
+        const gameData = new Core.GameData(20);
+        gameData.roundId = 2;
+        gameData.gameConfigs.enabled = true;
+        const placeBetConsumer = new PlaceBetConsumer(definition, gameData);
+
+        // act
+        var criterions = placeBetConsumer.composeBettingTimeValidationCriteria(1);
+
+        // assert
+        expect(criterions).not.toBeEmpty();
+        expect(criterions.filter((x) => x.failure)[0]).toStrictEqual({
+            failure: true,
+            notice: { errorCode: helpers.noticeHelper.invalidBet, gameRoundId: 1 },
+        });
     });
 
     it("should return valid bet when betting on place bet time", () => {
+        // arrange
         const gameData = new Core.GameData(20);
         gameData.gameConfigs = {
             enabled: true,
         };
         const consumer = new PlaceBetConsumer(definition, gameData, publisher);
 
-        const validationCriteria = consumer.composeBettingTimeValidationCriteria();
+        const validationCriteria = consumer.composeBettingTimeValidationCriteria(1);
+
+        // act
         const actualResult = validationCriteria.some((criteria) => criteria.failure);
 
+        // assert
         expect(actualResult).toBe(false);
     });
 });

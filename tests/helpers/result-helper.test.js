@@ -1,4 +1,4 @@
-import { generateResult, getSettlementResult } from "../result-helper";
+import { generateResult, getSettlementResult } from "../../src/helpers/result-helper";
 
 describe("generateResult test", () => {
     it("should return 3 dices having value between 0 and 5", () => {
