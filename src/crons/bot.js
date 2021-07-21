@@ -1,6 +1,5 @@
 import { Core } from "sc-game-base";
 import { userInfos } from "sc-base-database";
-import constants from "../constants";
 
 export default class Bot extends Core.Crons.BaseBot {
     constructor(definition, gameData, userInfosRepository) {
