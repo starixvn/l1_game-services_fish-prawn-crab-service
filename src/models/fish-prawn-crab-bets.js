@@ -20,9 +20,12 @@ const schema = new mongoose.Schema({
     memberId: { type: Number },
     siteId: { type: String },
     freeBet: { type: Boolean, default: false },
+
+    currency: { type: String, require: true },
+    rate: { type: Number, require: true },
+    partnerId: { type: String, require: true },
 });
 
 const bets = mongoose.model("BauCua_cuoc", schema);
-const tmpBets = mongoose.model("BauCua_tmpcuoc", schema);
 
-export { bets, tmpBets };
+export { bets };
