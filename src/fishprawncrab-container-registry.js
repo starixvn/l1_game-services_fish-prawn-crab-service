@@ -3,7 +3,7 @@ import { Core } from "sc-game-base";
 
 import { PlaceBetConsumer, SettleGameRoundConsumer } from "./consumers";
 import { Bot, GameCron } from "./crons";
-import { bets, tmpBets } from "./models/fish-prawn-crab-bets";
+import { bets } from "./models/fish-prawn-crab-bets";
 import rounds from "./models/fish-prawn-crab-rounds";
 
 const { asClass, asValue } = awilix;
@@ -15,7 +15,6 @@ export default class FishPrawnCrabContainerRegistry extends Core.ContainerRegist
         this.container.register({
             roundsRepository: asValue(rounds),
             betsRepository: asValue(bets),
-            tempBetsRepository: asValue(tmpBets),
         });
     }
 
