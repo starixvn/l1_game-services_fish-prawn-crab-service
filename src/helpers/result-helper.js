@@ -11,7 +11,7 @@ const settlementRuleEntries = Object.entries({
     prawn: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.prawn),
 });
 
-export const generateResult = () => {
+export const generateResult = (mode = 1) => {
     const resultArray = [];
     for (let index = 0; index < 100; index++) {
         resultArray.push(DiceRandom.random() - 1);
@@ -33,4 +33,9 @@ export const getSettlementResult = (roundResult) => {
 
         return result;
     }, {});
+};
+
+
+export const generateRawResultForHash = (roundResult) => {
+    return Object.values(roundResult);
 };
