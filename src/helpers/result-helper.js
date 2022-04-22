@@ -36,7 +36,6 @@ export const getSettlementResult = (roundResult) => {
     }, {});
 };
 
-
 export const generateRawResultForHash = (roundResult) => {
-    return Object.values(roundResult);
+    return `{${Object.values(roundResult)}}`;
 };

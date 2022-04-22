@@ -1,4 +1,4 @@
-import { generateResult, getSettlementResult } from "../../src/helpers/result-helper";
+import { generateResult, getSettlementResult, generateRawResultForHash } from "../../../src/helpers/result-helper";
 
 describe("generateResult test", () => {
     it("should return 3 dices having value between 0 and 5", () => {
@@ -33,5 +33,50 @@ describe("getSettlementResult test", () => {
         const actualResult = getSettlementResult(result);
 
         expect(actualResult).toEqual(expectSettlementResult);
+    });
+});
+
+describe("generateResult tests", () => {
+    describe("when not passing mode", () => {
+        it("should return enough results", () => {
+            // act
+            var result = generateResult();
+
+            // assert
+            expect(Object.keys(result).length).toBe(3);
+        });
+    });
+
+    describe("when passing a out of range mode", () => {
+        it("should return enough results", () => {
+            // act
+            var result = generateResult(10);
+
+            // assert
+            expect(Object.keys(result).length).toBe(3);
+        });
+    });
+
+    describe("when passing a valid mode", () => {
+        it("should return enough results", () => {
+            // act
+            var result = generateResult(2);
+
+            // assert
+            expect(Object.keys(result).length).toBe(3);
+        });
+    });
+});
+
+describe("generateRawResultForHash", () => {
+    it("should return correct format dices", () => {
+        // Arrange
+        const roundResult = { dice1: 1, dice2: 2, dice3: 3 };
+
+        // Act
+        const result = generateRawResultForHash(roundResult);
+
+        // Assert
+        expect(result).toBe("{1,2,3}");
     });
 });
