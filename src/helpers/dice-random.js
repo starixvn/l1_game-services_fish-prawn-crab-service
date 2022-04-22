@@ -26,12 +26,16 @@ const random5 = () => {
     return Random5.integer(1, 6);
 };
 
-const randomFunctions = [random1, random2, random3, random4, random5];
+export const randomModes = {
+    1: [random1, random2, random3],
+    2: [random1, random3, random5],
+    3: [random3, random4, random5],
+};
 
-export const random = () => {
+export const random = (mode) => {
     const chance = new Chance();
 
-    const randomFunction = chance.pickone(randomFunctions);
+    const randomFunction = chance.pickone(randomModes[mode]);
 
     return randomFunction();
 };

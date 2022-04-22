@@ -11,10 +11,11 @@ const settlementRuleEntries = Object.entries({
     prawn: (diceArray) => diceArray.some((dice) => dice === constants.resultMapper.prawn),
 });
 
-export const generateResult = (mode = 1) => {
+export const generateResult = (mode) => {
+    const selectedMode = mode >= 1 && mode <= 3 ? mode : 1;
     const resultArray = [];
     for (let index = 0; index < 100; index++) {
-        resultArray.push(DiceRandom.random() - 1);
+        resultArray.push(DiceRandom.random(selectedMode) - 1);
     }
 
     const chance = new Chance();
