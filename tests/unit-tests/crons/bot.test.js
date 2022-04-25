@@ -1,4 +1,4 @@
-import { stub, stubMongooseModelStupidly } from "jest-micro-auto-stub";
+import { stub, stubMongoose } from "jest-micro-auto-stub";
 import mongoose from "mongoose";
 import { Core } from "sc-game-base";
 
@@ -10,8 +10,8 @@ const gameData = new Core.GameData(0);
 const publisher = stub(Core.BaseEventPublishers);
 /** @type {mongoose.Model}*/
 /** @type {mongoose.Model}*/
-const tempBetsRepository = stubMongooseModelStupidly(mongoose.Model);
-const userInfosRepository = stubMongooseModelStupidly(mongoose.Model);
+const tempBetsRepository = stubMongoose(mongoose.Model);
+const userInfosRepository = stubMongoose(mongoose.Model);
 const fishPrawnCrabBot = new FishPrawnCrabBot(definition, gameData, publisher, userInfosRepository, tempBetsRepository);
 const resetTotalBets = { stag: 0, gourd: 0, rooster: 0, fish: 0, crab: 0, prawn: 0 };
 const bot = {
