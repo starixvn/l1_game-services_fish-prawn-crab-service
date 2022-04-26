@@ -77,6 +77,6 @@ describe("generateRawResultForHash", () => {
         const result = generateRawResultForHash(roundResult);
 
         // Assert
-        expect(result).toBe("{1,2,3}");
+        expect(result).toBe("{2,3,4}");
     });
 });

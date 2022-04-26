@@ -40,10 +40,15 @@ export const ingameTest = () => {
                     expect(inGameData.gameConfigs.minBet).toEqual(1);
                     expect(inGameData.gameConfigs.maxBet).toEqual(3000);
                     expect(inGameData.gameConfigs.maxBetPerChoices).toStrictEqual({
-                        fish: 2000, prawn: 2000, crab: 2000, stag: 2000, gourd: 2000, rooster: 2000 
+                        fish: 2000,
+                        prawn: 2000,
+                        crab: 2000,
+                        stag: 2000,
+                        gourd: 2000,
+                        rooster: 2000
                     });
                     expect(inGameData.gameConfigs.odds).toStrictEqual({
-                        single: 2, double: 3.4, triple: 6 
+                        single: 2, double: 3.4, triple: 6
                     });
 
                     normalUserClientDriver.close();

@@ -24,9 +24,9 @@ export const getHistoryTest = () => {
                     currency: "$US",
                     name: "NormalUser",
                     odds: {
-                        single: 2, 
-                        double: 3.4, 
-                        triple: 6 
+                        single: 2,
+                        double: 3.4,
+                        triple: 6
                     },
                     partnerId: "dummy-partner-id",
                     rate: 1,
@@ -47,9 +47,9 @@ export const getHistoryTest = () => {
                     currency: "$US",
                     name: "NormalUser",
                     odds: {
-                        single: 2, 
-                        double: 3.4, 
-                        triple: 6 
+                        single: 2,
+                        double: 3.4,
+                        triple: 6
                     },
                     partnerId: "dummy-partner-id",
                     rate: 1,
