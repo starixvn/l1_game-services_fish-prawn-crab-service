@@ -1,6 +1,7 @@
 export default {
     id: 3,
-    name: "BauCua",
+    name: "FishPrawnCrab",
+    configName: "baucua",
     durations: {
         wholeRound: 40,
         placingBets: 30,

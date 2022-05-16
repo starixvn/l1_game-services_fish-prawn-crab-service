@@ -31,6 +31,4 @@ const schema = new mongoose.Schema({
     paid: { type: Boolean, default: false },
 });
 
-const bets = mongoose.model("BauCua_cuoc", schema);
-
-export { bets };
+export default  mongoose.model("BauCua_cuoc", schema);

@@ -1,17 +1,17 @@
-import { stub, stubMongooseModelStupidly } from "jest-micro-auto-stub";
+import { stub, stubMongoose } from "jest-micro-auto-stub";
 import mongoose from "mongoose";
 import { Core } from "sc-game-base";
 
-import FishPrawnCrabBot from "../../src/crons/bot";
-import gameSettings from "../../src/game-settings";
+import FishPrawnCrabBot from "../../../src/crons/bot";
+import gameSettings from "../../../src/game-settings";
 
 const definition = new Core.GameDefinition(gameSettings);
 const gameData = new Core.GameData(0);
 const publisher = stub(Core.BaseEventPublishers);
 /** @type {mongoose.Model}*/
 /** @type {mongoose.Model}*/
-const tempBetsRepository = stubMongooseModelStupidly(mongoose.Model);
-const userInfosRepository = stubMongooseModelStupidly(mongoose.Model);
+const tempBetsRepository = stubMongoose(mongoose.Model);
+const userInfosRepository = stubMongoose(mongoose.Model);
 const fishPrawnCrabBot = new FishPrawnCrabBot(definition, gameData, publisher, userInfosRepository, tempBetsRepository);
 const resetTotalBets = { stag: 0, gourd: 0, rooster: 0, fish: 0, crab: 0, prawn: 0 };
 const bot = {
@@ -41,27 +41,31 @@ describe("FishPrawnCrabBot inherit test", () => {
 });
 
 describe("placeBet test", () => {
-    it("should ignore bot bet when lock bet", async () => {
-        const tempGameData = new Core.GameData(3);
-        tempGameData.gameConfigs = gameConfigs;
-        const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
+    describe("when lock bet", () => {
+        it("should ignore bot bet", async () => {
+            const tempGameData = new Core.GameData(3);
+            tempGameData.gameConfigs = gameConfigs;
+            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
 
-        await tempFishPrawnCrabBot.placeBet({});
+            await tempFishPrawnCrabBot.placeBet({});
 
-        expect(tempFishPrawnCrabBot.totalTickets).toEqual(0);
-        expect(tempFishPrawnCrabBot.smallTickets).toEqual(0);
-        expect(tempFishPrawnCrabBot.allBets).toEqual(resetTotalBets);
+            expect(tempFishPrawnCrabBot.totalTickets).toEqual(0);
+            expect(tempFishPrawnCrabBot.smallTickets).toEqual(0);
+            expect(tempFishPrawnCrabBot.allBets).toEqual(resetTotalBets);
+        });
     });
 
-    it("should capture bot bet when bet on valid time", async () => {
-        const tempGameData = new Core.GameData(23);
-        tempGameData.gameConfigs = gameConfigs;
-        const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
+    describe("when bet on valid time", () => {
+        it("should capture bot bet", async () => {
+            const tempGameData = new Core.GameData(23);
+            tempGameData.gameConfigs = gameConfigs;
+            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
 
-        await tempFishPrawnCrabBot.placeBet({});
+            await tempFishPrawnCrabBot.placeBet({});
 
-        expect(tempFishPrawnCrabBot.totalTickets).toEqual(1);
-        expect(Object.keys(tempFishPrawnCrabBot.allBets).length > 0);
+            expect(tempFishPrawnCrabBot.totalTickets).toEqual(1);
+            expect(Object.keys(tempFishPrawnCrabBot.allBets).length > 0);
+        });
     });
 });
 
@@ -74,17 +78,19 @@ describe("reset test", () => {
         expect(Core.Crons.BaseBot.prototype.reset).toHaveBeenCalled();
     });
 
-    it("should remove all bots when disable bot", async () => {
-        const tempGameData = new Core.GameData(23);
-        tempGameData.gameConfigs = {
-            botenabled: false,
-        };
-        const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
-        tempFishPrawnCrabBot.bots = [bot];
+    describe("when disable bot", () => {
+        it("should remove all bots", async () => {
+            const tempGameData = new Core.GameData(23);
+            tempGameData.gameConfigs = {
+                botenabled: false,
+            };
+            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
+            tempFishPrawnCrabBot.bots = [bot];
 
-        await tempFishPrawnCrabBot.reset();
+            await tempFishPrawnCrabBot.reset();
 
-        expect(tempFishPrawnCrabBot.bots).toEqual([]);
+            expect(tempFishPrawnCrabBot.bots).toEqual([]);
+        });
     });
 });
 
@@ -180,20 +186,24 @@ describe("getAllBetAmount test", () => {
 });
 
 describe("isSmallTicket test", () => {
-    it("should return true when amount below 50 times minbet", () => {
-        const amount = 49;
+    describe("when amount below 50 times minbet", () => {
+        it("should return true", () => {
+            const amount = 49;
 
-        const actualResult = fishPrawnCrabBot.isSmallTicket(amount);
+            const actualResult = fishPrawnCrabBot.isSmallTicket(amount);
 
-        expect(actualResult).toBe(true);
+            expect(actualResult).toBe(true);
+        });
     });
 });
 
 describe("getTotalBetAmount test", () => {
-    it("should zero when current bet is undefined", () => {
-        const actualResult = fishPrawnCrabBot.getTotalBetAmount();
+    describe("when current bet is undefined", () => {
+        it("should zero", () => {
+            const actualResult = fishPrawnCrabBot.getTotalBetAmount();
 
-        expect(actualResult).toEqual(0);
+            expect(actualResult).toEqual(0);
+        });
     });
 
     it("should return total bet amount", () => {

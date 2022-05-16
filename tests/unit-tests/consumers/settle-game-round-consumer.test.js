@@ -1,15 +1,12 @@
-import { stubMongooseModelStupidly } from "jest-micro-auto-stub";
 import mongoose from "mongoose";
 import { Core } from "sc-game-base";
 
-import SettleGameRoundConsumer from "../../src/consumers/settle-game-round-consumer";
+import SettleGameRoundConsumer from "../../../src/consumers/settle-game-round-consumer";
 
 jest.mock("sc-game-base/src/core/event-publishers/round-result-publisher");
 jest.mock("sc-game-base/src/core/event-publishers/user-bet-result-publisher");
 
 const endGame = jest.fn();
-const roundsRepository = stubMongooseModelStupidly(mongoose.Model);
-const betsRepository = stubMongooseModelStupidly(mongoose.Model);
 const definition = new Core.GameDefinition({ id: 1, name: "game name" }, jest.fn(), jest.fn());
 const gameData = new Core.GameData();
 gameData.gameConfigs = {
@@ -111,7 +108,13 @@ describe("settleBets test", () => {
 
         definition.generateResult.mockReturnValueOnce(result);
         definition.settle.mockReturnValueOnce(settlementResult);
-        roundsRepository.create.mockReturnValueOnce({ id: 1, result, settlementResult });
+        const roundsRepository = {
+            findOne: jest.fn().mockReturnValue({ exec: jest.fn().mockReturnValue({ id: 1, result, settlementResult }) }),
+          };
+
+          const betsRepository = {
+            findOne: jest.fn().mockReturnValue({ exec: jest.fn().mockReturnValue( { save: jest.fn() }) }),
+          };
 
         const termConsumer = new SettleGameRoundConsumer({
             definition,
