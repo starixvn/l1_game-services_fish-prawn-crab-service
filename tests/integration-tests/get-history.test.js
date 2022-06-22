@@ -13,26 +13,23 @@ export const getHistoryTest = () => {
             const expectedData = [
                 {
                     stag: 100,
-            gourd: 0,
-            rooster: 0,
-            fish: 0,
-            crab: 0,
-            prawn: 0,
+                    gourd: 0,
+                    rooster: 0,
+                    fish: 0,
+                    crab: 0,
+                    prawn: 0,
                     betwin: 0,
                     freeBet: false,
                     phien: 1190119,
-                    currency: "$US",
                     name: "NormalUser",
                     odds: {
                         single: 2,
                         double: 3.4,
-                        triple: 6
+                        triple: 6,
                     },
-                    partnerId: "dummy-partner-id",
                     rate: 1,
                     betLogDetails: [],
                     roundId: 1190119,
-                    paid: true,
                 },
                 {
                     stag: 100,
@@ -44,18 +41,15 @@ export const getHistoryTest = () => {
                     betwin: 0,
                     freeBet: false,
                     phien: 1190119,
-                    currency: "$US",
                     name: "NormalUser",
                     odds: {
                         single: 2,
                         double: 3.4,
-                        triple: 6
+                        triple: 6,
                     },
-                    partnerId: "dummy-partner-id",
                     rate: 1,
                     betLogDetails: [],
                     roundId: 1190119,
-                    paid: false,
                 },
             ];
 

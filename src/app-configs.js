@@ -13,16 +13,16 @@ export default {
         placeBetTimeout: 4500,
         enableApiLogs: true,
     },
-    mainServerApiSettings: {
-        url: "http://localhost:8080/api",
-        auth: {
-            url: "http://localhost:8898",
-            id: "game-services",
-            secret: "gameservices@20luminet&",
-        },
+    authenticateSettings: {
+        url: "http://auth.lumigame.com",
+        id: "game-services",
+        secret: "gameservices@20luminet&",
         requestTimeout: 10000,
-        placeBetTimeout: 4500,
-        useAuthenticate: true,
+        useAuthenticate: false,
+        audiences: ["api", "admin-api"],
+    },
+    userServiceSettings: {
+        url: "http://127.0.0.1:5000",
     },
     socketOptions: {
         pingInterval: 60 * 1000,
@@ -45,9 +45,6 @@ export default {
         sentryUrl: "http://454d91efa04544c593435a8096ec7763@sentry.lumigame.com/10",
         logIdentifier: "fish-prawn-crab",
         env: "LOCAL",
-    },
-    authenticateSettings: {
-        audiences: ["api", "admin-api"],
     },
     adminSecretKey: "asWDEerfOIdgsdqRTFabvmgh",
     enableCorsWs: false,

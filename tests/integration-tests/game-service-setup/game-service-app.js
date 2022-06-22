@@ -1,5 +1,5 @@
 import { Core } from "sc-game-base";
-import { initAPIStub } from "sc-game-service-integration-utils";
+import { initAPIStub, stubUserService } from "sc-game-service-integration-utils";
 
 import appConfigs from "../../../src//app-configs.IGT";
 import gameSettings from "../../../src/game-settings";
@@ -9,6 +9,8 @@ import FishPrawnCrabDefinition from "../../../src/fish-prawn-crab-definition";
 
 export const run = async () => {
     initAPIStub(appConfigs.apiSettings.apiUrl);
+    stubUserService(appConfigs);
+
     const gameData = new Core.GameData(gameSettings.durations.wholeRound);
     const definition = new FishPrawnCrabDefinition(gameSettings, generateResult, getSettlementResult, generateRawResultForHash);
     const container = new FishPrawnCrabContainerRegistry().register(appConfigs, definition, gameData);
