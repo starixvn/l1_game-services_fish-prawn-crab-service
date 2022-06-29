@@ -45,10 +45,12 @@ export const ingameTest = () => {
                         crab: 2000,
                         stag: 2000,
                         gourd: 2000,
-                        rooster: 2000
+                        rooster: 2000,
                     });
                     expect(inGameData.gameConfigs.odds).toStrictEqual({
-                        single: 2, double: 3.4, triple: 6
+                        single: 2,
+                        double: 3.4,
+                        triple: 6,
                     });
 
                     normalUserClientDriver.close();
@@ -76,6 +78,7 @@ export const ingameTest = () => {
                         name: "NormalUser",
                         rate: 1,
                         red: 25000,
+                        type: false,
                     });
 
                     normalUserClientDriver.close();
