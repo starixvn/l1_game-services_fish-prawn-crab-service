@@ -20,7 +20,6 @@ export const getHistoryTest = () => {
                     prawn: 0,
                     betwin: 0,
                     freeBet: false,
-                    phien: 1190119,
                     name: "NormalUser",
                     odds: {
                         single: 2,
@@ -30,6 +29,7 @@ export const getHistoryTest = () => {
                     rate: 1,
                     betLogDetails: [],
                     roundId: 1190119,
+                    phien: 1190119,
                 },
                 {
                     stag: 100,
@@ -40,7 +40,6 @@ export const getHistoryTest = () => {
                     prawn: 0,
                     betwin: 0,
                     freeBet: false,
-                    phien: 1190119,
                     name: "NormalUser",
                     odds: {
                         single: 2,
@@ -50,6 +49,7 @@ export const getHistoryTest = () => {
                     rate: 1,
                     betLogDetails: [],
                     roundId: 1190119,
+                    phien: 1190119,
                 },
             ];
 

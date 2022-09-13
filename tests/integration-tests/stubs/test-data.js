@@ -24,51 +24,51 @@ const gameConfig = {
 
 const rounds = [
     {
-        "id": 1190119,
-        "result": {
-            "dice1": 0,
-            "dice2": 1,
-            "dice3": 3
+        id: 1190119,
+        result: {
+            dice1: 0,
+            dice2: 1,
+            dice3: 3,
         },
-        "settlementResult": {
-            "stag": true,
-            "gourd": true,
-            "rooster": false,
-            "fish": true,
-            "crab": false,
-            "prawn": false
-        },
-    },
-    {
-        "id": 1190118,
-        "result": {
-            "dice1": 3,
-            "dice2": 1,
-            "dice3": 0
-        },
-        "settlementResult": {
-            "stag": true,
-            "gourd": true,
-            "rooster": false,
-            "fish": true,
-            "crab": false,
-            "prawn": false
+        settlementResult: {
+            stag: true,
+            gourd: true,
+            rooster: false,
+            fish: true,
+            crab: false,
+            prawn: false,
         },
     },
     {
-        "id": 1190117,
-        "result": {
-            "dice1": 5,
-            "dice2": 3,
-            "dice3": 1
+        id: 1190118,
+        result: {
+            dice1: 3,
+            dice2: 1,
+            dice3: 0,
         },
-        "settlementResult": {
-            "stag": false,
-            "gourd": true,
-            "rooster": false,
-            "fish": true,
-            "crab": false,
-            "prawn": true
+        settlementResult: {
+            stag: true,
+            gourd: true,
+            rooster: false,
+            fish: true,
+            crab: false,
+            prawn: false,
+        },
+    },
+    {
+        id: 1190117,
+        result: {
+            dice1: 5,
+            dice2: 3,
+            dice3: 1,
+        },
+        settlementResult: {
+            stag: false,
+            gourd: true,
+            rooster: false,
+            fish: true,
+            crab: false,
+            prawn: true,
         },
     },
 ];
@@ -77,11 +77,10 @@ const userBetData = (uid) => {
     return [
         {
             freeBet: false,
-            phien: 1190119,
             uid: uid,
             betwin: 0,
             currency: "$US",
-            memberId: 1,
+            playerId: 1,
             name: "NormalUser",
             odds: gameConfig.odds,
             partnerId: "dummy-partner-id",
@@ -93,16 +92,15 @@ const userBetData = (uid) => {
             crab: 0,
             prawn: 0,
             siteId: "111",
-            thanhtoan: true,
+            paid: true,
             roundId: 1190119,
         },
         {
             freeBet: false,
-            phien: 1190119,
             uid: uid,
             betwin: 0,
             currency: "$US",
-            memberId: 4,
+            playerId: 4,
             name: "NormalUser",
             odds: gameConfig.odds,
             partnerId: "dummy-partner-id",
@@ -114,9 +112,8 @@ const userBetData = (uid) => {
             crab: 0,
             prawn: 0,
             siteId: "111",
-            thanhtoan: true,
-            roundId: 1190119,
             paid: true,
+            roundId: 1190119,
         },
     ];
 };
