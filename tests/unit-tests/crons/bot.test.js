@@ -4,6 +4,7 @@ import { Core } from "sc-game-base";
 
 import FishPrawnCrabBot from "../../../src/crons/bot";
 import gameSettings from "../../../src/game-settings";
+import appConfigs from "../../../src/app-configs";
 
 const definition = new Core.GameDefinition(gameSettings);
 const gameData = new Core.GameData(0);
@@ -12,7 +13,7 @@ const publisher = stub(Core.BaseEventPublishers);
 /** @type {mongoose.Model}*/
 const tempBetsRepository = stubMongoose(mongoose.Model);
 const userInfosRepository = stubMongoose(mongoose.Model);
-const fishPrawnCrabBot = new FishPrawnCrabBot(definition, gameData, publisher, userInfosRepository, tempBetsRepository);
+const fishPrawnCrabBot = new FishPrawnCrabBot(definition, gameData, tempBetsRepository, appConfigs);
 const resetTotalBets = { stag: 0, gourd: 0, rooster: 0, fish: 0, crab: 0, prawn: 0 };
 const bot = {
     id: 1,
@@ -45,7 +46,7 @@ describe("placeBet test", () => {
         it("should ignore bot bet", async () => {
             const tempGameData = new Core.GameData(3);
             tempGameData.gameConfigs = gameConfigs;
-            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
+            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData, null, appConfigs);
 
             await tempFishPrawnCrabBot.placeBet({});
 
@@ -59,7 +60,7 @@ describe("placeBet test", () => {
         it("should capture bot bet", async () => {
             const tempGameData = new Core.GameData(23);
             tempGameData.gameConfigs = gameConfigs;
-            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
+            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData, null, appConfigs);
 
             await tempFishPrawnCrabBot.placeBet({});
 
@@ -84,7 +85,7 @@ describe("reset test", () => {
             tempGameData.gameConfigs = {
                 botenabled: false,
             };
-            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData);
+            const tempFishPrawnCrabBot = new FishPrawnCrabBot(definition, tempGameData, null, appConfigs);
             tempFishPrawnCrabBot.bots = [bot];
 
             await tempFishPrawnCrabBot.reset();
