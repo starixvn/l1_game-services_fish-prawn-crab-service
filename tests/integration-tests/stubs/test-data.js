@@ -25,6 +25,7 @@ const gameConfig = {
 const rounds = [
     {
         id: 1190119,
+        exchangeRateId: 1,
         result: {
             dice1: 0,
             dice2: 1,
@@ -41,6 +42,7 @@ const rounds = [
     },
     {
         id: 1190118,
+        exchangeRateId: 1,
         result: {
             dice1: 3,
             dice2: 1,
@@ -57,6 +59,7 @@ const rounds = [
     },
     {
         id: 1190117,
+        exchangeRateId: 1,
         result: {
             dice1: 5,
             dice2: 3,
