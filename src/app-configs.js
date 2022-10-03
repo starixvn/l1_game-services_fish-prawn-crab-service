@@ -11,7 +11,7 @@ export default {
         useAuthenticate: false,
         requestTimeout: 10000,
         placeBetTimeout: 4000,
-        enableApiLogs: true,
+        enabledApiLogs: true,
     },
     authenticateSettings: {
         url: "http://auth.lumigame.com",
