@@ -97,6 +97,7 @@ const userBetData = (uid) => {
             siteId: "111",
             paid: true,
             roundId: 1190119,
+            operatorId: " ",
         },
         {
             freeBet: false,
@@ -117,6 +118,7 @@ const userBetData = (uid) => {
             siteId: "111",
             paid: true,
             roundId: 1190119,
+            operatorId: " ",
         },
     ];
 };
