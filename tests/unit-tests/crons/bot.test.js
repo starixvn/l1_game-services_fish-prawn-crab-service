@@ -72,7 +72,7 @@ describe("placeBet test", () => {
 
 describe("reset test", () => {
     it("should call super reset", () => {
-        spyOn(Core.Crons.BaseBot.prototype, "reset");
+        jest.spyOn(Core.Crons.BaseBot.prototype, "reset");
 
         fishPrawnCrabBot.reset();
 
@@ -97,8 +97,8 @@ describe("reset test", () => {
 
 describe("resetAllBotData test", () => {
     it("should call resetAllBets and resetAllBotData", async () => {
-        spyOn(Core.Crons.BaseBot.prototype, "resetAllBotData");
-        spyOn(FishPrawnCrabBot.prototype, "resetAllBets");
+        jest.spyOn(Core.Crons.BaseBot.prototype, "resetAllBotData");
+        jest.spyOn(FishPrawnCrabBot.prototype, "resetAllBets");
 
         await fishPrawnCrabBot.resetAllBotData();
 

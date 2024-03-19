@@ -1,8 +1,11 @@
-import { Core } from "sc-game-base";
-
 import appConfigs from "./app-configs";
-import FishPrawnCrabContainerRegistry from "./fish-prawn-crab-container-registry";
 import gameSettings from "./game-settings";
+import { startTrace } from "sc-instrument";
+
+startTrace(appConfigs.otel?.enabled, appConfigs.otel?.endpoint, appConfigs.otel?.system, appConfigs.sentry.env, gameSettings.name);
+
+import { Core } from "sc-game-base";
+import FishPrawnCrabContainerRegistry from "./fish-prawn-crab-container-registry";
 import { generateResult, getSettlementResult, generateRawResultForHash } from "./helpers";
 import FishPrawnCrabDefinition from "./fish-prawn-crab-definition";
 
