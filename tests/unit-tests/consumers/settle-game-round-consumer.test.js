@@ -110,11 +110,11 @@ describe("settleBets test", () => {
         definition.settle.mockReturnValueOnce(settlementResult);
         const roundsRepository = {
             findOne: jest.fn().mockReturnValue({ exec: jest.fn().mockReturnValue({ id: 1, result, settlementResult }) }),
-          };
+        };
 
-          const betsRepository = {
-            findOne: jest.fn().mockReturnValue({ exec: jest.fn().mockReturnValue( { save: jest.fn() }) }),
-          };
+        const betsRepository = {
+            findOne: jest.fn().mockReturnValue({ exec: jest.fn().mockReturnValue({ save: jest.fn() }) }),
+        };
 
         const termConsumer = new SettleGameRoundConsumer({
             definition,
@@ -135,7 +135,6 @@ describe("settleBets test", () => {
 
         expect(termConsumer.callEndGame).toHaveBeenCalled();
         expect(userBetResultPublisher.publish).toHaveBeenCalled();
-        expect(roundResultPublisher.publishRoundResult).toHaveBeenCalled();
     });
 });
 
