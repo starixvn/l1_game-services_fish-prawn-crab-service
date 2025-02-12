@@ -2,7 +2,7 @@ import awilix from "awilix";
 import { Core } from "sc-game-base";
 
 import { PlaceBetConsumer, SettleGameRoundConsumer } from "./consumers";
-import { Bot, GameCron } from "./crons";
+import { Bot, GameCron, ProcessBetQueue } from "./crons";
 import { FishPrawnCrabBets, FishPrawnCrabRounds, FishPrawnCrabResults } from "./models";
 const { asClass, asValue } = awilix;
 
@@ -32,6 +32,7 @@ export default class FishPrawnCrabContainerRegistry extends Core.ContainerRegist
         this.container.register({
             bot: asClass(Bot).singleton(),
             gameCron: asClass(GameCron).singleton().proxy(),
+            processBetQueue: asClass(ProcessBetQueue).singleton().proxy(),
         });
     }
 }
