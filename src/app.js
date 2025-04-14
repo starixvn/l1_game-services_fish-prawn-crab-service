@@ -1,6 +1,8 @@
 import appConfigs from "./app-configs";
 import gameSettings from "./game-settings";
 import { startTrace } from "sc-instrument";
+import { registerViewModule } from "./register-view-module";
+import GameData from "./game-data";
 
 startTrace(appConfigs.otel?.enabled, appConfigs.otel?.endpoint, appConfigs.otel?.system, appConfigs.sentry.env, gameSettings.name);
 
@@ -10,12 +12,15 @@ import { generateResult, getSettlementResult, generateRawResultForHash } from ".
 import FishPrawnCrabDefinition from "./fish-prawn-crab-definition";
 
 const run = async () => {
-    const gameData = new Core.GameData(gameSettings.durations.wholeRound);
+    const gameData = new GameData(gameSettings.durations.wholeRound);
+    gameData.viewPlayers = {};
+
     const definition = new FishPrawnCrabDefinition(gameSettings, generateResult, getSettlementResult, generateRawResultForHash);
     const container = new FishPrawnCrabContainerRegistry().register(appConfigs, definition, gameData);
     const app = new Core.BaseGameApp("FishPrawnCrab", appConfigs);
     await app.run();
     await app.startGame(container);
+    registerViewModule(app, container, definition);
 };
 
 run();
